@@ -58,11 +58,15 @@ data Direction = DLeft
                deriving (Show)
 data Point = Pt {pointx,pointy :: Float }
 getDirection :: Point -> Point -> Point -> Direction
-getDirection p1 p2 p3 = if a - b == 180
+getDirection p1 p2 p3 = if n == 0
                         then DLine
-                        else if a - b < 180
+                        else if n > 0
                              then DRight
                              else DLeft 
            where a = atan2 (pointy(p3) - pointy(p1)) (pointx(p3) - pointx(p1))
                  b = atan2 (pointy(p2) - pointy(p1)) (pointx(p2) - pointx(p1))
+                 n = a - b
 
+getDirections :: [Point] -> [Direction]
+getDirections (a:b:c:xs) = (getDirection a b c):(getDirections (b:c:xs))
+getDirections _ = []
