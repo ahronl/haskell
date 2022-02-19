@@ -58,9 +58,9 @@ data Direction = DLeft
                deriving (Show)
 data Point = Pt {pointx,pointy :: Float }
 getDirection :: Point -> Point -> Point -> Direction
-getDirection p1 p2 p3 = if n == 0
+getDirection p1 p2 p3 = if (n == 0 || n == Prelude.pi)
                         then DLine
-                        else if n > 0
+                        else if (n < Prelude.pi/2 && n > -Prelude.pi/2)
                              then DRight
                              else DLeft 
            where a = atan2 (pointy(p3) - pointy(p1)) (pointx(p3) - pointx(p1))
