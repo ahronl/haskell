@@ -52,3 +52,17 @@ treeHight (Node _ left right) = if treeHight(left) > treeHight(right)
                                 then 1 + treeHight(left)
                                 else 1 + treeHight(right)
 
+data Direction = DLeft 
+               | DRight 
+               | DLine 
+               deriving (Show)
+data Point = Pt {pointx,pointy :: Float }
+getDirection :: Point -> Point -> Point -> Direction
+getDirection p1 p2 p3 = if a - b == 180
+                        then DLine
+                        else if a - b < 180
+                             then DRight
+                             else DLeft 
+           where a = atan2 (pointy(p3) - pointy(p1)) (pointx(p3) - pointx(p1))
+                 b = atan2 (pointy(p2) - pointy(p1)) (pointx(p2) - pointx(p1))
+
