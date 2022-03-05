@@ -1,10 +1,10 @@
-import Data.List
+import           Data.List
 
 add a b = a + b
 
 lastButOne :: [a] -> Maybe a
 lastButOne xs = if (null xs || length(xs) < 2)
-                then Nothing 
+                then Nothing
                 else if (length(xs) == 2) then Just(head(xs)) else lastButOne(tail xs)
 
 myLen :: [a] -> Int
@@ -30,7 +30,7 @@ mySort xs = sortBy(\a b -> (compare (length a) (length b))) xs
 
 -- simpelest solution
 myIntersperse :: a -> [[a]] -> [a]
-myIntersperse d xs = if null xs || length(xs) == 0 
+myIntersperse d xs = if null xs || length(xs) == 0
                      then []
                      else if length(xs) == 1
                           then head(xs)
@@ -38,8 +38,8 @@ myIntersperse d xs = if null xs || length(xs) == 0
 
 -- use pattern matching
 myIntersperseVOne :: a -> [[a]] -> [a] -- type
-myIntersperseVOne _ [] = [] -- term
-myIntersperseVOne _ (x:[]) = x
+myIntersperseVOne _ []       = [] -- term
+myIntersperseVOne _ (x:[])   = x
 myIntersperseVOne sep (x:xs) = x ++ [sep] ++ myIntersperse sep xs
 
 -- binary tree
@@ -52,9 +52,9 @@ treeHight (Node _ left right) = if treeHight(left) > treeHight(right)
                                 then 1 + treeHight(left)
                                 else 1 + treeHight(right)
 
-data Direction = DLeft 
-               | DRight 
-               | DLine 
+data Direction = DLeft
+               | DRight
+               | DLine
                deriving (Show)
 data Point = Pt {pointx,pointy :: Float }
 getDirection :: Point -> Point -> Point -> Direction
@@ -62,11 +62,11 @@ getDirection p1 p2 p3 = if (n == 0 || n == Prelude.pi)
                         then DLine
                         else if (n < Prelude.pi/2 && n > -Prelude.pi/2)
                              then DRight
-                             else DLeft 
+                             else DLeft
            where a = atan2 (pointy(p3) - pointy(p1)) (pointx(p3) - pointx(p1))
                  b = atan2 (pointy(p2) - pointy(p1)) (pointx(p2) - pointx(p1))
                  n = a - b
 
 getDirections :: [Point] -> [Direction]
 getDirections (a:b:c:xs) = (getDirection a b c):(getDirections (b:c:xs))
-getDirections _ = []
+getDirections _          = []
